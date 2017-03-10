@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="723.0" stylesheets="/resources/css/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="723.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.MainController">
    <children>
 
       <Pane id="chessboard" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="501.0" />
@@ -19,7 +19,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button id="disconnectBtn" fx:id="disconnectBtn" layoutX="631.0" layoutY="86.0" mnemonicParsing="false" text="断开连接">
+      <Button id="disconnectBtn" fx:id="disconnectBtn" layoutX="631.0" layoutY="86.0" mnemonicParsing="false" onAction="#handlerDisConnection" text="断开连接">
          <font>
             <Font size="14.0" />
          </font>
@@ -45,32 +45,52 @@
          </font>
       </Button>
       <ScrollPane id="chatAreaPane" fx:id="chatAreaPane" layoutX="515.0" layoutY="230.0">
-         <TextArea id="chatArea" fx:id="chatArea" editable="false" prefHeight="246.0" prefWidth="200.0" text="如何开始？&#10;点击建立连接，自己建立主机或者连接别人主机。" />
+         <TextArea id="chatArea" fx:id="chatArea" editable="false" prefHeight="246.0" prefWidth="200.0" text="如何开始？&#10;点击建立连接，自己建立主机或者连接别人主机。&#10;" />
       </ScrollPane>
-      <TextField layoutX="515.0" layoutY="487.0" prefHeight="23.0" prefWidth="158.0" promptText="请输入要发送的内容" />
+      <TextField fx:id="chatField" layoutX="515.0" layoutY="487.0" prefHeight="23.0" prefWidth="158.0" promptText="请输入要发送的内容" />
       <Button id="sendBtn" fx:id="sendBtn" layoutX="678.0" layoutY="487.0" mnemonicParsing="false" text="发送" />
       <Line endX="100.0" layoutX="615.0" layoutY="213.0" startX="-100.0" stroke="#0a1a1e" />
       <Line endX="100.0" layoutX="616.0" layoutY="74.0" startX="-100.0" />
-      <Label layoutX="530.0" layoutY="22.0" text="总计：" textFill="#a739ab">
+      <Label layoutX="530.0" layoutY="14.0" text="总计：" textFill="#9dab34">
               <font>
                  <Font size="14.0" />
               </font>
       </Label>
-      <Label layoutX="530.0" layoutY="50.0" text="获胜：" textFill="#a739ab">
+      <Label layoutX="530.0" layoutY="50.0" text="获胜：" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="600.0" layoutY="24.0" text="0" textFill="#a739ab">
+      <Label fx:id="count" layoutX="572.0" layoutY="15.0" text="0" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="600.0" layoutY="50.0" text="0" textFill="#a739ab">
+      <Label fx:id="win" layoutX="572.0" layoutY="51.0" text="0" textFill="#9DAB34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-
+      <Line endY="20.0" layoutX="616.0" layoutY="51.0" startY="-40.0" />
+      <Label layoutX="630.0" layoutY="14.0" text="对手：" textFill="#9dab34">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="630.0" layoutY="50.0" text="胜率：" textFill="#9dab34">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="otherName" layoutX="672.0" layoutY="14.0" text="NONE" textFill="#9dab34">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="winRate" layoutX="672.0" layoutY="51.0" text="0.0" textFill="#9dab34">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,7 +1,0 @@
-#main {
-    -fx-background-color: #824621;
-}
-
-#chessboard{
-    -fx-background-image: url("/resources/image/chessboard.jpg");
-}

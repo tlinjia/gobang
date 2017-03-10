@@ -1,9 +1,7 @@
-package controller;
+package main.Utils;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
+import main.Socket.Connection;
 
 import java.util.LinkedList;
 
@@ -11,19 +9,22 @@ import java.util.LinkedList;
  * 保存整个游戏状态
  * Created by lin on 2017/3/7/0007.
  */
-public class StatusListener {
+public class Status {
 
     public final int BLACK_CHESS = 1; //黑棋为1
 
     public final int WHITE_CHESS = -1; //白棋为-1
 
-    public static String name;  //自己的昵称
+    private static String name;  //自己的昵称
 
-    public static String otherName; //对方的昵称
+    private static String otherName; //对方的昵称
 
-    private static boolean connect = false; //是否建立连接标志
+    private static SimpleStringProperty otherNameProperty;
 
-    private static BooleanProperty connectProperty;
+
+    private static boolean connected = false; //是否建立连接标志
+
+    private static BooleanProperty connectedProperty;
 
     private static boolean begin = false; //游戏是否开始标志
 
@@ -45,34 +46,41 @@ public class StatusListener {
 
     private static IntegerProperty winProperty;
 
+    private static BooleanProperty buildServerProperty;
+
+    private static Connection connection;
+
     public static String getName() {
         return name;
     }
 
     public static void setName(String name) {
-        StatusListener.name = name;
+        Status.name = name;
     }
 
     public static String getOtherName() {
+        if(otherNameProperty != null){
+            return otherNameProperty.get();
+        }
         return otherName;
     }
 
     public static void setOtherName(String otherName) {
-        StatusListener.otherName = otherName;
+        Status.otherName = otherName;
     }
 
-    public static boolean isConnect() {
-        if(connectProperty != null){
-            return connectProperty.get();
+    public static boolean isConnected() {
+        if(connectedProperty != null){
+            return connectedProperty.get();
         }
-        return connect;
+        return connected;
     }
 
-    public static void setConnect(boolean connect) {
-        if(connectProperty != null){
-            connectProperty.set(connect);
+    public static void setConnected(boolean connected) {
+        if(connectedProperty != null){
+            connectedProperty.set(connected);
         }
-        StatusListener.connect = connect;
+        Status.connected = connected;
     }
 
     public static boolean isBegin() {
@@ -86,7 +94,7 @@ public class StatusListener {
         if(beginProperty != null){
             beginProperty.set(begin);
         }
-        StatusListener.begin = begin;
+        Status.begin = begin;
     }
 
     public static boolean isSwitchFlag() {
@@ -100,7 +108,7 @@ public class StatusListener {
         if(switchFlagProperty != null){
             switchFlagProperty.set(switchFlag);
         }
-        StatusListener.switchFlag = switchFlag;
+        Status.switchFlag = switchFlag;
     }
 
     public static int getCount() {
@@ -114,7 +122,7 @@ public class StatusListener {
         if(countProperty != null){
             countProperty.set(count);
         }
-        StatusListener.count = count;
+        Status.count = count;
     }
 
     public static int getWin() {
@@ -128,7 +136,7 @@ public class StatusListener {
         if(winProperty != null){
             winProperty.set(win);
         }
-        StatusListener.win = win;
+        Status.win = win;
     }
 
     public static int[] getChessboard() {
@@ -140,15 +148,15 @@ public class StatusListener {
     }
 
 
-    public final BooleanProperty connectProperty() {
-        if(connectProperty == null){
-            connectProperty = new SimpleBooleanProperty(connect);
+    public static final BooleanProperty connectedProperty() {
+        if(connectedProperty == null){
+            connectedProperty = new SimpleBooleanProperty(connected);
         }
-        return connectProperty;
+        return connectedProperty;
     }
 
 
-    public final BooleanProperty beginProperty() {
+    public static final BooleanProperty beginProperty() {
         if(beginProperty == null){
             beginProperty = new SimpleBooleanProperty(begin);
         }
@@ -156,14 +164,14 @@ public class StatusListener {
     }
 
 
-    public final BooleanProperty switchFlagProperty() {
+    public static final BooleanProperty switchFlagProperty() {
         if(switchFlagProperty == null){
             switchFlagProperty = new SimpleBooleanProperty(switchFlag);
         }
         return switchFlagProperty;
     }
 
-    public final IntegerProperty countProperty() {
+    public static final IntegerProperty countProperty() {
         if(countProperty == null){
             countProperty = new SimpleIntegerProperty(count);
         }
@@ -171,15 +179,37 @@ public class StatusListener {
     }
 
 
-    public final IntegerProperty winProperty() {
+    public static final IntegerProperty winProperty() {
         if(winProperty == null){
             winProperty = new SimpleIntegerProperty(win);
         }
         return winProperty;
     }
 
+    public static final StringProperty otherNameProperty(){
+        if(otherNameProperty == null){
+            otherNameProperty = new SimpleStringProperty(otherName);
+        }
+        return otherNameProperty;
+    }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
+    public static void setConnection(Connection connection) {
+        Status.connection = connection;
+    }
+
+    public static final BooleanProperty buildServerProperty(){
+        if(buildServerProperty == null){
+            buildServerProperty = new SimpleBooleanProperty();
+        }
+        return buildServerProperty;
+    }
+
     static class Stack<T> {
-        private LinkedList<T> storage = new LinkedList<T>();
+        private LinkedList<T> storage = new LinkedList<>();
 
         public void push(T v) {
             storage.addFirst(v);
