@@ -10,84 +10,85 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="723.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.MainController">
+<AnchorPane id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="760.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.MainController">
    <children>
 
-      <Pane id="chessboard" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="501.0" />
-      <Button id="connectBtn" fx:id="connectBtn" layoutX="530.0" layoutY="86.0" mnemonicParsing="false" onAction="#handlerConnection" text="建立连接">
+      <Pane id="chessboard" fx:id="chessboard" onMouseMoved="#boardMouseMoved" onMouseClicked="#boardMouseClicked" layoutX="10" layoutY="10.0" prefHeight="540.0" prefWidth="540.0" />
+      <Line layoutX="660.0" endX="100" layoutY="21" startX="-100"/>
+      <Button id="connectBtn" fx:id="connectBtn" layoutX="570.0" layoutY="126.0" mnemonicParsing="false" onAction="#handlerConnection" text="建立连接">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button id="disconnectBtn" fx:id="disconnectBtn" layoutX="631.0" layoutY="86.0" mnemonicParsing="false" onAction="#handlerDisConnection" text="断开连接">
+      <Button id="disconnectBtn" fx:id="disconnectBtn" layoutX="671.0" layoutY="126.0" mnemonicParsing="false" onAction="#handlerDisConnection" text="断开连接">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button id="readyBtn" fx:id="readyBtn" layoutX="530.0" layoutY="129.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" text="准备">
+      <Button id="readyBtn" fx:id="readyBtn" layoutX="571.0" layoutY="169.0" mnemonicParsing="false" onAction="#handlerReady" prefHeight="29.0" prefWidth="76.0" text="准备">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button id="compromiseBtn" fx:id="compromiseBtn" layoutX="631.0" layoutY="129.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" text="和棋">
+      <Button id="compromiseBtn" fx:id="compromiseBtn" layoutX="671.0" layoutY="169.0" mnemonicParsing="false" onAction="#handlerCompromise" prefHeight="29.0" prefWidth="76.0" text="和棋">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button id="backBtn" fx:id="backBtn" layoutX="531.0" layoutY="172.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" text="悔棋">
+      <Button id="backBtn" fx:id="backBtn" onAction="#backHandler" layoutX="571.0" layoutY="212.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" text="悔棋">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button id="surrenderBtn" fx:id="surrenderBtn" layoutX="631.0" layoutY="172.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" text="认输">
+      <Button id="surrenderBtn" fx:id="surrenderBtn" layoutX="671.0" layoutY="212.0" mnemonicParsing="false" onAction="#surrenderHandler" prefHeight="29.0" prefWidth="76.0" text="认输">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <ScrollPane id="chatAreaPane" fx:id="chatAreaPane" layoutX="515.0" layoutY="230.0">
-         <TextArea id="chatArea" fx:id="chatArea" editable="false" prefHeight="246.0" prefWidth="200.0" text="如何开始？&#10;点击建立连接，自己建立主机或者连接别人主机。&#10;" />
+      <ScrollPane id="chatAreaPane"  layoutX="560.0" layoutY="265.0">
+         <TextArea id="chatArea" fx:id="chatArea" editable="false" prefHeight="250.0" prefWidth="200.0" text="如何开始？&#10;点击建立连接，自己建立主机或者连接别人主机。&#10;" />
       </ScrollPane>
-      <TextField fx:id="chatField" layoutX="515.0" layoutY="487.0" prefHeight="23.0" prefWidth="158.0" promptText="请输入要发送的内容" />
-      <Button id="sendBtn" fx:id="sendBtn" layoutX="678.0" layoutY="487.0" mnemonicParsing="false" text="发送" />
-      <Line endX="100.0" layoutX="615.0" layoutY="213.0" startX="-100.0" stroke="#0a1a1e" />
-      <Line endX="100.0" layoutX="616.0" layoutY="74.0" startX="-100.0" />
-      <Label layoutX="530.0" layoutY="14.0" text="总计：" textFill="#9dab34">
+      <TextField fx:id="chatField" onKeyPressed="#chatFieldListener" layoutX="560.0" layoutY="527.0" prefHeight="23.0" prefWidth="158.0" promptText="请输入要发送的内容" />
+      <Button id="sendBtn" fx:id="sendBtn" onAction="#sendHandler" layoutX="723.0" layoutY="527.0" mnemonicParsing="false" text="发送" />
+      <Line endX="100.0" layoutX="660.0" layoutY="253.0" startX="-100.0" stroke="#0a1a1e" />
+      <Line endX="100.0" layoutX="660.0" layoutY="114.0" startX="-100.0" />
+      <Label layoutX="570.0" layoutY="44.0" text="总计：" textFill="#9dab34">
               <font>
                  <Font size="14.0" />
               </font>
       </Label>
-      <Label layoutX="530.0" layoutY="50.0" text="获胜：" textFill="#9dab34">
+      <Label layoutX="570.0" layoutY="80.0" text="获胜：" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="count" layoutX="572.0" layoutY="15.0" text="0" textFill="#9dab34">
+      <Label fx:id="count" layoutX="612.0" layoutY="45.0" text="0" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="win" layoutX="572.0" layoutY="51.0" text="0" textFill="#9DAB34">
+      <Label fx:id="win" layoutX="612.0" layoutY="81.0" text="0" textFill="#9DAB34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Line endY="20.0" layoutX="616.0" layoutY="51.0" startY="-40.0" />
-      <Label layoutX="630.0" layoutY="14.0" text="对手：" textFill="#9dab34">
+      <Line endY="30.0" layoutX="660.0" layoutY="81.0" startY="-55.0" />
+      <Label layoutX="670.0" layoutY="44.0" text="对手：" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="630.0" layoutY="50.0" text="胜率：" textFill="#9dab34">
+      <Label layoutX="670.0" layoutY="80.0" text="胜率：" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="otherName" layoutX="672.0" layoutY="14.0" text="NONE" textFill="#9dab34">
+      <Label fx:id="otherName" layoutX="712.0" layoutY="44.0" text="NONE" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="winRate" layoutX="672.0" layoutY="51.0" text="0.0" textFill="#9dab34">
+      <Label fx:id="winRate" layoutX="712.0" layoutY="81.0" text="0.0" textFill="#9dab34">
          <font>
             <Font size="14.0" />
          </font>

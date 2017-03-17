@@ -22,10 +22,10 @@ public class AlertWindow {
 
     /**
      * 父窗口
-     * @PARAM paren
+     * @param  parent
      *
      * 关闭弹出框时是否隐藏父窗口
-     * @PARAM shouldHideParen
+     * @param  shouldHideParent
      */
     public void display(Stage parent,boolean shouldHideParent) {
         Stage alertStage = new Stage();
@@ -34,7 +34,6 @@ public class AlertWindow {
 
         Label label = new Label(message);
         label.setWrapText(true);
-        label.setMaxWidth(200);
         label.setLayoutX(rows < 1 ? (200 - this.message.length() * 11) / 2 : 40);
         label.setLayoutY(20);
         label.setMaxWidth(120);
@@ -53,11 +52,13 @@ public class AlertWindow {
         layout.setMinWidth(200);
 
         alertStage.setScene(new Scene(layout));
-
         alertStage.initModality(Modality.WINDOW_MODAL);
         alertStage.initOwner(parent);
         alertStage.setResizable(false);
         alertStage.initStyle(StageStyle.UNDECORATED);
+
+        alertStage.setX(parent.getX() + ((parent.getWidth() - 200) / 2));
+        alertStage.setY(parent.getY() + ((parent.getHeight() - 100) / 2));
         alertStage.show();
     }
 

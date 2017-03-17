@@ -22,12 +22,15 @@ public class ConnectionWindow {
     private ConnectionWindow(){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/connection.fxml"));
+            Stage paren = Main.getPrimaryStage();
             conStage = new Stage();
             conStage.initModality(Modality.WINDOW_MODAL);
             conStage.initOwner(Main.getPrimaryStage());
             conStage.setScene(new Scene(root));
             conStage.setResizable(false);
             conStage.initStyle(StageStyle.UTILITY);
+            conStage.setX(paren.getX() + ((paren.getWidth() - 252) / 2));
+            conStage.setY(paren.getY() + ((paren.getHeight() - 197) / 2));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -37,6 +37,7 @@ public class Main extends Application {
             primaryStage.setOnCloseRequest((event)->{
                 Connection connection = Status.getConnection();
                 if(connection != null) connection.disconnection();
+                System.exit(0);
             });
             primaryStage.show();
         } catch (IOException e) {

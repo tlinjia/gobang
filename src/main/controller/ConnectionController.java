@@ -33,18 +33,22 @@ public class ConnectionController implements Initializable{
     private void buildHost() throws UnsupportedEncodingException {
         if (isEmpty(nameField)) {
             emptyOperation("name");
-        } else if (nameField.getText().getBytes("GB2312").length > 8) {
+        } else if (nameField.getText().trim().getBytes("GB2312").length > 8) {
             new AlertWindow("昵称不能超过8个字符!").display(ConnectionWindow.getConStage(),false);
         } else {
-            Status.setName(nameField.getText());
+            Status.setName(nameField.getText().trim());
             int port = 4747;
             boolean hasFault = false; //是否端口有误
 
             if (!isEmpty(portField)) {
                 try {
-                    port = Integer.parseInt(portField.getText());
+                    port = Integer.parseInt(portField.getText().trim());
+                    if(port < 1025 || port > 65534){
+                        new AlertWindow("端口号输入错误!\n请输入1025~65534之间的整数!").display(ConnectionWindow.getConStage(),false);
+                        hasFault = true;
+                    }
                 } catch (NumberFormatException e) {
-                    new AlertWindow("  端口号输入错误!\n请输入1025~65534之间的整数!").display(ConnectionWindow.getConStage(),false);
+                    new AlertWindow("端口号输入错误!\n请输入1025~65534之间的整数!").display(ConnectionWindow.getConStage(),false);
                     hasFault = true;
                 }
             }
@@ -63,14 +67,14 @@ public class ConnectionController implements Initializable{
         }else if(isEmpty(ipField)){
             emptyOperation("ip");
         }else{
-            Status.setName(nameField.getText());
+            Status.setName(nameField.getText().trim());
             boolean hasFault = false;
             InetAddress ip = null;
             int port = 4747;
             try {
-                ip = InetAddress.getByName(ipField.getText());
+                ip = InetAddress.getByName(ipField.getText().trim());
                 if(!isEmpty(portField)){
-                    port = Integer.parseInt(portField.getText());
+                    port = Integer.parseInt(portField.getText().trim());
                 }
             } catch (UnknownHostException e) {
                 new AlertWindow("ip地址有误,请重试!").display(ConnectionWindow.getConStage(),false);

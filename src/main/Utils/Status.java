@@ -1,9 +1,12 @@
 package main.Utils;
 
 import javafx.beans.property.*;
+import javafx.scene.shape.Circle;
 import main.Socket.Connection;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * 保存整个游戏状态
@@ -11,9 +14,11 @@ import java.util.LinkedList;
  */
 public class Status {
 
-    public final int BLACK_CHESS = 1; //黑棋为1
+    public final static int BLACK_CHESS = 1; //黑棋为1
 
-    public final int WHITE_CHESS = -1; //白棋为-1
+    public final static int WHITE_CHESS = -1; //白棋为-1
+
+    public final static int MESSAGE_MAX_LENGTH = 100; //消息最大长度
 
     private static String name;  //自己的昵称
 
@@ -34,6 +39,8 @@ public class Status {
 
     private static boolean switchFlag = true; //轮转标志，true时黑棋下，false时白棋下
 
+    private static boolean chessFlag = true; //己方棋色标志，true是黑，false是白
+
     private static BooleanProperty switchFlagProperty;
 
     private static Stack<Integer> past = new Stack<>(); //保存走过的步数，用于悔棋
@@ -49,6 +56,14 @@ public class Status {
     private static BooleanProperty buildServerProperty;
 
     private static Connection connection;
+
+    private static boolean ready = false;
+
+    private static BooleanProperty readyProperty;
+
+    private static boolean otherReady = false;
+
+    private static BooleanProperty otherReadyProperty;
 
     public static String getName() {
         return name;
@@ -208,23 +223,54 @@ public class Status {
         return buildServerProperty;
     }
 
-    static class Stack<T> {
-        private LinkedList<T> storage = new LinkedList<>();
-
-        public void push(T v) {
-            storage.addFirst(v);
+    public static boolean isReady() {
+        if(readyProperty != null){
+            return readyProperty.get();
         }
-
-        public T peek() {
-            return storage.getFirst();
-        }
-
-        public T pop() {
-            return storage.removeFirst();
-        }
-
-        public boolean isEmpty() {
-            return storage.isEmpty();
-        }
+        return ready;
     }
+
+    public static void setReady(boolean ready) {
+        if(readyProperty != null){
+            readyProperty.set(ready);
+        }
+        Status.ready = ready;
+    }
+
+    public static BooleanProperty readyProperty(){
+        if(readyProperty == null){
+            readyProperty = new SimpleBooleanProperty(ready);
+        }
+        return readyProperty;
+    }
+
+    public static boolean isOtherReady() {
+        if(otherReadyProperty != null){
+            return otherReadyProperty.get();
+        }
+        return otherReady;
+    }
+
+    public static void setOtherReady(boolean ready) {
+        if(otherReadyProperty != null){
+            otherReadyProperty.set(ready);
+        }
+        Status.otherReady = ready;
+    }
+
+    public static BooleanProperty otherReadyProperty(){
+        if(otherReadyProperty == null){
+            otherReadyProperty = new SimpleBooleanProperty(otherReady);
+        }
+        return otherReadyProperty;
+    }
+
+    public static boolean isChessFlag() {
+        return chessFlag;
+    }
+
+    public static void setChessFlag(boolean chessFlag) {
+        Status.chessFlag = chessFlag;
+    }
+
 }
